@@ -25,15 +25,15 @@ const app = new App({
     receiver: expressReceiver
 });
 
-app.command('/anniversary', async ({body, ack, say}) => {
+app.command('/anniversary', async ({command, ack, say}) => {
     // Acknowledge command request
     await ack('Running..');
 
     try {
         const res = await axios.post(process.env.WORKFLOW_DISPATCH_PATH, {
             ref: 'main',
-            input: {
-                type: `${body.text}`
+            inputs: {
+                type: `${command.text}`
             }
         })
         console.log(res)
