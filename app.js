@@ -26,6 +26,11 @@ const app = new App({
 });
 
 app.command('/anniversary', async ({command, ack, say}) => {
+    if (!command.text || !command.text.match(/first|next/)) {
+        await ack('first か next を指定してください');
+        return
+    }
+
     // Acknowledge command request
     await ack('Running..');
 
